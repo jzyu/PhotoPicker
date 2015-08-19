@@ -25,6 +25,8 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
   public final static String EXTRA_MAX_COUNT     = "MAX_COUNT";
   public final static String EXTRA_SHOW_CAMERA   = "SHOW_CAMERA";
+  public final static String EXTRA_CAPTURE_RESIZE_WIDTH = "RESIZE_WIDTH";
+  public final static String EXTRA_CAPTURE_SAVE_DIR = "SAVE_DIR";
   public final static String KEY_SELECTED_PHOTOS = "SELECTED_PHOTOS";
 
   private MenuItem menuDoneItem;

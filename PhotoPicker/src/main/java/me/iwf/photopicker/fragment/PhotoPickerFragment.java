@@ -8,7 +8,6 @@ import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,7 @@ import android.widget.Button;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.R;
 import me.iwf.photopicker.adapter.PhotoGridAdapter;
@@ -125,7 +124,10 @@ public class PhotoPickerFragment extends Fragment {
     photoGridAdapter.setOnCameraClickListener(new OnClickListener() {
       @Override public void onClick(View view) {
         try {
-          Intent intent = captureManager.dispatchTakePictureIntent();
+          String privateDir = getActivity().getIntent().getStringExtra(
+                  PhotoPickerActivity.EXTRA_CAPTURE_SAVE_DIR);
+
+          Intent intent = captureManager.dispatchTakePictureIntent(privateDir);
           startActivityForResult(intent, ImageCaptureManager.REQUEST_TAKE_PHOTO);
         } catch (IOException e) {
           e.printStackTrace();
@@ -152,7 +154,14 @@ public class PhotoPickerFragment extends Fragment {
 
   @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == ImageCaptureManager.REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+      int resizeWidth = getActivity().getIntent().getIntExtra(
+              PhotoPickerActivity.EXTRA_CAPTURE_RESIZE_WIDTH, -1);
+      if (resizeWidth > 0 ) {
+        captureManager.resizePhoto(resizeWidth);
+      }
+
       captureManager.galleryAddPic();
+
       if (directories.size() > 0) {
         String path = captureManager.getCurrentPhotoPath();
         PhotoDirectory directory = directories.get(INDEX_ALL_PHOTOS);

@@ -3,7 +3,7 @@ package me.iwf.photopicker.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
+
 import me.iwf.photopicker.PhotoPickerActivity;
 
 /**
@@ -43,4 +43,13 @@ public class PhotoPickerIntent extends Intent {
     this.putExtra(PhotoPickerActivity.EXTRA_SHOW_CAMERA, showCamera);
   }
 
+  public void setCaptureResizeWidth(int resizeWidth) {
+    this.putExtra(PhotoPickerActivity.EXTRA_CAPTURE_RESIZE_WIDTH, resizeWidth);
+    setShowCamera(true);
+  }
+
+  public void setCaptureSaveDir(String privateDir) {
+    this.putExtra(PhotoPickerActivity.EXTRA_CAPTURE_SAVE_DIR, privateDir);
+    setShowCamera(true);
+  }
 }

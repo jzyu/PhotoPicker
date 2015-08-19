@@ -38,6 +38,8 @@ public class MainActivity extends ActionBarActivity {
       @Override public void onClick(View view) {
         PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this);
         intent.setPhotoCount(9);
+        intent.setCaptureResizeWidth(600);
+        intent.setCaptureSaveDir("PhotoPickerDemo");
         startActivityForResult(intent, REQUEST_CODE);
       }
     });
